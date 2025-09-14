@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUpDown } from "lucide-react";
-import { motion } from "framer-motion";
 import { getSwappableTokens } from "../services/tokenService";
+import TokenSelector from "./TokenSelector";
 
 const SwapForm = () => {
   const [tokens, setTokens] = useState([]);
@@ -17,9 +17,6 @@ const SwapForm = () => {
   useEffect(() => {
     loadTokens();
   }, []);
-
-  // Remove calculation useEffect
-  console.log("fromAmount", fromAmount);
 
   const loadTokens = async () => {
     try {
@@ -38,7 +35,9 @@ const SwapForm = () => {
       setLoading(false);
     }
   };
-
+  console.log("fromToken", fromToken);
+  console.log("token List", tokens);
+  console.log("fromAmount", fromAmount);
   const handleSwapTokens = () => {
     const tempToken = fromToken;
     setFromToken(toToken);
@@ -83,78 +82,93 @@ const SwapForm = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full max-w-md mx-auto"
-    >
-      <div className="bg-white flex flex-col gap-1 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden p-4">
-        {/* Sell Section */}
-        <div className="p-4 border border-gray-200  rounded-xl">
-          <div className="text-sm font-medium text-left text-gray-600 mb-3">
-            Sell
-          </div>
+    <div className="bg-white flex flex-col gap-1 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden p-4">
+      {/* Sell Section */}
+      <div className="p-4 border border-gray-200 rounded-xl">
+        <div className="text-sm font-medium text-left text-gray-600 mb-3">
+          Sell
+        </div>
 
-          <div className="flex items-center justify-between">
-            <input
-              type="text"
-              value={fromAmount}
-              onChange={(e) => handleAmountChange(e.target.value)}
-              placeholder="0"
-              className="text-4xl font-light text-gray-900 bg-transparent border-none outline-none flex-1 placeholder-gray-400"
+        <div className="flex items-center justify-between gap-4">
+          <input
+            type="text"
+            value={fromAmount}
+            onChange={(e) => handleAmountChange(e.target.value)}
+            placeholder="0"
+            className="text-4xl font-light text-gray-900 bg-transparent border-none outline-none flex-1 placeholder-gray-400"
+          />
+
+          <div className="min-w-[200px]">
+            <TokenSelector
+              selectedToken={fromToken}
+              onTokenSelect={setFromToken}
+              tokens={tokens}
+              excludeToken={toToken}
             />
-          </div>
-
-          <div className="mt-2 text-sm text-gray-500 text-left">
-            {fromToken && fromAmount
-              ? formatUSD(fromAmount, fromToken.price)
-              : "$0"}
           </div>
         </div>
 
-        {/* Swap Arrow */}
-        <div className="flex justify-center bg-white relative">
-          <button
-            onClick={handleSwapTokens}
-            className="absolute -top-3 bg-white border-4 border-gray-100 rounded-full p-2 hover:border-gray-200 transition-colors z-10"
-          >
-            <ArrowUpDown className="w-4 h-4 text-gray-600" />
-          </button>
-        </div>
-
-        {/* Buy Section */}
-        <div
-          className={`p-4 border border-gray-200 rounded-xl ${
-            isDisabled ? "bg-gray-100" : "bg-white"
-          }`}
-        >
-          <div className="text-sm font-medium text-left text-gray-600 mb-3">
-            Buy
-          </div>
-
-          <div className="flex items-center justify-between">
-            <input
-              type="text"
-              value={toAmount}
-              readOnly
-              disabled={isDisabled}
-              placeholder="0"
-              className={`text-4xl font-light bg-transparent border-none outline-none flex-1 placeholder-gray-400 ${
-                isDisabled
-                  ? "text-gray-400 cursor-not-allowed"
-                  : "text-gray-900"
-              }`}
-            />
-          </div>
-          <div className="mt-2 text-sm text-gray-500 text-left">
-            {fromToken && fromAmount && !isDisabled
-              ? formatUSD(fromAmount, fromToken.price)
-              : "$0"}
-          </div>
+        <div className="mt-2 text-sm text-gray-500 text-left">
+          {fromToken && fromAmount
+            ? formatUSD(fromAmount, fromToken.price)
+            : "$0"}
         </div>
       </div>
-    </motion.div>
+
+      {/* Swap Arrow */}
+      <div className="flex justify-center bg-white relative">
+        <button
+          onClick={handleSwapTokens}
+          className="absolute -top-3 bg-white border-4 border-gray-100 rounded-full p-2 hover:border-gray-200 transition-colors z-10"
+        >
+          <ArrowUpDown className="w-4 h-4 text-gray-600" />
+        </button>
+      </div>
+
+      {/* Buy Section */}
+      <div
+        className={`p-4 border border-gray-200 rounded-xl ${
+          isDisabled ? "bg-gray-100" : "bg-white"
+        }`}
+      >
+        <div className="text-sm font-medium text-left text-gray-600 mb-3">
+          Buy
+        </div>
+
+        <div className="flex items-center justify-between gap-4">
+          <input
+            type="text"
+            value={toAmount}
+            readOnly
+            disabled={isDisabled}
+            placeholder="0"
+            className={`text-4xl font-light bg-transparent border-none outline-none flex-1 placeholder-gray-400 ${
+              isDisabled
+                ? "text-gray-400 cursor-not-allowed"
+                : "text-gray-900"
+            }`}
+          />
+
+          <div className="min-w-[200px]">
+            <TokenSelector
+              selectedToken={toToken}
+              onTokenSelect={setToToken}
+              tokens={tokens}
+              excludeToken={fromToken}
+              className={
+                isDisabled ? "opacity-50 pointer-events-none" : ""
+              }
+            />
+          </div>
+        </div>
+
+        <div className="mt-2 text-sm text-gray-500 text-left">
+          {toToken && toAmount && !isDisabled
+            ? formatUSD(toAmount, toToken.price)
+            : "$0"}
+        </div>
+      </div>
+    </div>
   );
 };
 
