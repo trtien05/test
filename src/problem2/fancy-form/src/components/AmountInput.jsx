@@ -35,21 +35,21 @@ const AmountInput = ({
           onChange={handleInputChange}
           placeholder={placeholder}
           readOnly={readOnly}
-          className={`w-full bg-white border border-gray-300 rounded-xl px-4 py-4 text-2xl font-semibold text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-200 ${
+          className={`w-full bg-white border border-gray-300 rounded-xl px-3 sm:px-4 py-3 sm:py-4 text-xl sm:text-2xl font-semibold text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-200 ${
             readOnly
               ? "bg-gray-50 cursor-not-allowed"
               : "hover:border-blue-400"
-          }`}
+          } ${token ? "pr-16 sm:pr-20" : ""}`}
         />
 
         {token && (
-          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+          <div className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-1 sm:space-x-2">
             <img
               src={token.image}
               alt={token.symbol}
-              className="w-6 h-6 rounded-full"
+              className="w-5 h-5 sm:w-6 sm:h-6 rounded-full"
             />
-            <span className="text-lg font-medium text-gray-600">
+            <span className="text-sm sm:text-lg font-medium text-gray-600">
               {token.symbol}
             </span>
           </div>
@@ -57,7 +57,7 @@ const AmountInput = ({
       </div>
 
       {token && value && (
-        <div className="mt-2 text-sm text-gray-500">
+        <div className="mt-2 text-xs sm:text-sm text-gray-500">
           {formatUSD(value, token.price)}
         </div>
       )}

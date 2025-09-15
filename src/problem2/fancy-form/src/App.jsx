@@ -18,17 +18,17 @@ function App() {
               "48px 48px, 48px 48px, 100% 100%, 100% 100%",
           }}
         />
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
-          <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
-            <div >
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-4 tracking-tight leading-tight">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+          <div className="flex flex-col items-center justify-center text-center max-w-6xl mx-auto w-full">
+            <div className="mb-6 sm:mb-8 lg:mb-3">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-2 sm:mb-4 tracking-tight leading-tight">
                 Swap Anytime,
               </h1>
-              <h1 className="text-5xl sm:text-6xl md:text-7xl  font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-purple-800 bg-clip-text text-transparent mb-8 tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-purple-800 bg-clip-text text-transparent mb-4 sm:mb-6 lg:mb-8 tracking-tight leading-tight">
                 Anywhere
               </h1>
             </div>
-            <div className="swap-form-container w-full flex justify-center">
+            <div className="swap-form-container w-full max-w-lg mx-auto">
               <SwapForm />
             </div>
           </div>
