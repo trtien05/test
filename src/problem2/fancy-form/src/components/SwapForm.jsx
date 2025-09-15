@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ArrowUpDown } from "lucide-react";
 import { getSwappableTokens } from "../services/tokenService";
 import TokenSelector from "./TokenSelector";
 import { message } from "antd";
 const SwapForm = () => {
+  // Ant Design message instance
   const [messageApi, contextHolder] = message.useMessage();
 
+  // State variables
   const [tokens, setTokens] = useState([]);
   const [fromToken, setFromToken] = useState(null);
   const [toToken, setToToken] = useState(null);
@@ -122,9 +124,7 @@ const SwapForm = () => {
       setLoading(false);
     }
   };
-  console.log("fromToken", fromToken);
-  console.log("token List", tokens);
-  console.log("fromAmount", fromAmount);
+
   const handleFromTokenSelect = (token) => {
     setFromToken(token);
     setTouched((prev) => ({ ...prev, fromToken: true }));
@@ -458,7 +458,7 @@ const SwapForm = () => {
             disabled={!isFormValid || isSwapping}
             className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-200 ${
               isFormValid && !isSwapping
-                ? "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                ? "swap-btn-gradient"
                 : "bg-gray-200 text-gray-500 cursor-not-allowed"
             }`}
           >

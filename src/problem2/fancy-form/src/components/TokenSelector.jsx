@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import { Modal } from "antd";
 
@@ -36,7 +36,7 @@ const TokenSelector = ({
         onClick={() => setIsOpen(!isOpen)}
         data-from-token-selector={excludeToken ? undefined : true}
         data-to-token-selector={excludeToken ? true : undefined}
-        className="w-full bg-white border border-gray-300 rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+        className="token-selector-btn"
       >
         {selectedToken ? (
           <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
