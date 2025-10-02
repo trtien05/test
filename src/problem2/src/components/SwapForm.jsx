@@ -202,30 +202,6 @@ const SwapForm = () => {
     }
   };
 
-  const handleSellSectionClick = () => {
-    if (!fromToken) {
-      // Find the TokenSelector button and click it
-      setTimeout(() => {
-        const fromTokenButton = document.querySelector(
-          "[data-from-token-selector]"
-        );
-        if (fromTokenButton) fromTokenButton.click();
-      }, 0);
-    }
-  };
-
-  const handleBuySectionClick = () => {
-    if (!toToken) {
-      // Find the TokenSelector button and click it
-      setTimeout(() => {
-        const toTokenButton = document.querySelector(
-          "[data-to-token-selector]"
-        );
-        if (toTokenButton) toTokenButton.click();
-      }, 0);
-    }
-  };
-
   const handleSubmit = async () => {
     // Mark all fields as touched
     setTouched({
@@ -335,7 +311,6 @@ const SwapForm = () => {
               ? "border-red-300"
               : "border-gray-200"
           }`}
-          onClick={handleSellSectionClick}
         >
           <div className="text-sm font-medium text-left text-gray-600 mb-3">
             Sell
@@ -409,7 +384,6 @@ const SwapForm = () => {
               ? "border-red-300"
               : "border-gray-200"
           }`}
-          onClick={handleBuySectionClick}
         >
           <div className="text-sm font-medium text-left text-gray-600 mb-3">
             Buy
